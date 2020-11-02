@@ -67,7 +67,7 @@ select city, state, count(*)
 
 select * from addressbook_service where city = 'Nagpur' order by fname, lname;
 
-//UC9
+//UC9 &11
 
 alter table addressbook_service
    -> add type varchar(10) NOT NULL
@@ -76,5 +76,9 @@ alter table addressbook_service
     -> set type = 'Family' where fname = 'Isha';
  update addressbook_service
     -> set type = 'Friends' where fname = 'Leena';
+
+//UC10
+
+select type,count(fname) from addressBook group by type;
 
 
