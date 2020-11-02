@@ -67,18 +67,35 @@ select city, state, count(*)
 
 select * from addressbook_service where city = 'Nagpur' order by fname, lname;
 
-//UC9 &11
+//UC9
 
-alter table addressbook_service
-   -> add type varchar(10) NOT NULL
-   -> after lname;
- update addressbook_service
-    -> set type = 'Family' where fname = 'Isha';
- update addressbook_service
-    -> set type = 'Friends' where fname = 'Leena';
+alter table addressbook_service add id INT AUTO_INCREMENT NOT NULL primary key  first;
+ alter table addressbook_service change id contact_id INT;
+alter table addressbook_service rename contact_table;
+create table addressbook_service 
+    -> (
+    -> id       INT NOT NULL AUTO_INCREMENT,
+    -> addName  VARCHAR(150) NOT NULL,
+    -> type     VARCHAR(150),
+    -> primary key (id)
+    -> );
+alter table addressbook_service add contacts_id INT NOT NULL after id;
+alter table addressbook_service add foreign key (contacts_id) references contact_table(contact_id);
 
 //UC10
 
-select type,count(fname) from addressBook group by type;
+ select type,count(contacts_id) from addressbook_service group by type;
 
+//UC11
+
+insert into addressbook_service (contacts_id, addName, type) values (1,'AddressBook1','family');
+insert into addressbook_service (contacts_id, addName, type) values (2,'AddressBook2','friend');
+insert into addressbook_service (contacts_id, addName, type) values (3,'AddressBook3','profession');
+insert into addressbook_service (contacts_id, addName, type) values (1,'AddressBook2','friend');
+
+//UC13
+
+select contact_table.contact_id, contact_table.fname,contact_table.lname,contact_table.address, contact_table.city, contact_table.state, 
+       contact_table.zip, contact_table.phone_no,contact_table.email,addressbook_service .addName, addressbook_service .type
+from contact_table inner join addressbook_service on contact_table.contact_id = addressbook_service .contacts_id;
 
