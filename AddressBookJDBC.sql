@@ -90,8 +90,7 @@ alter table addressbook_service add foreign key (contacts_id) references contact
 
 insert into addressbook_service (contacts_id, addName, type) values (1,'AddressBook1','family');
 insert into addressbook_service (contacts_id, addName, type) values (2,'AddressBook2','friend');
-insert into addressbook_service (contacts_id, addName, type) values (3,'AddressBook3','profession');
-insert into addressbook_service (contacts_id, addName, type) values (1,'AddressBook2','friend');
+insert into addressbook_service (contacts_id, addName, type) values (3,'AddressBook3','friend');
 
 //UC13
 
